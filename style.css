@@ -1,0 +1,154 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: linear-gradient(120deg, #f6d365, #f8997f);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+header{
+    font-size: 1.5rem;
+}
+
+header, form{
+    min-height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input {
+    border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
+}
+
+.todo-button {
+    border-radius: 0 10px 10px 0; /* Only the right side rounded for button */
+    transition: all 0.3s ease;
+}
+form input, .todo-button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+    color: #da785d; /* Color for the button text */
+    cursor: pointer;
+}
+
+form button:hover{
+    background: #da785d;
+    color: white;
+}
+
+
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-list {
+    min-width: 25s%;
+    list-style: none;
+}
+
+.todo {
+    margin: 0.5rem;
+    background: white;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.todo li {
+    flex: 1;
+    justify-content: center;
+}
+
+.trash-btn, .complete-btn, .edit-btn {
+    background: #E7D4C0;
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.complete-btn {
+    background-color: #E98973;
+}
+
+.edit-btn {
+    background-color: rgb(119, 119, 160);
+    
+   
+}
+
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    margin: 5px 0;
+    background-color: #ffffff;
+    border-radius: 10px; /* Rounded corners for the todo column */
+    color: #da785d;
+}
+
+.todo-item {
+    flex-grow: 1; /* Allows the todo item text to take up available space */
+    padding: 0rem 0.5rem;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.complete-btn, .trash-btn, .edit-btn {
+    border-radius: 5px; /* Slightly rounded corners for the buttons */
+}
+
+/* Additional styling for individual buttons if needed */
+.complete-btn {
+    background-color: #4CAF50; /* Example: Green background for the complete button */
+    color: white;
+}
+
+.trash-btn {
+    background-color: #f44336; /* Example: Red background for the trash button */
+    color: white;
+}
+
+.edit-btn {
+    background-color: #ff9800; /* Example: Orange background for the edit button */
+    color: white;
+}
+
+.fa-trash, 
+.fa-edit,
+.fa-check{
+    pointer-events: none;
+
+}
+
+.todo-item-edit {
+    width: 100%; /* Makes the input field take up the full width of the todo item */
+    font-size: 1.5rem; /* Match this to your todo item font size */
+    color: #da785d;/* Match this to your todo item font color */
+    font-family: 'Poppins', sans-serif; /* Match this to your todo item font family */
+    border: none; /* Removes the border to make it look more integrated */
+    outline: none; /* Removes the outline to keep the appearance clean */
+    box-shadow: none; /* Removes any box shadow if present */
+    margin: 0; /* Adjust as needed */
+    padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
+}
