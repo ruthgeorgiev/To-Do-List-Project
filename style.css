@@ -22,9 +22,6 @@ header, form{
     align-items: center;
 }
 
-form{
-
-}
 form input {
     border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
 }
@@ -164,4 +161,74 @@ button {
 .fall{
     transform: translateY(8rem) rotateZ(20deg);
     opacity: 0;
+}
+
+/*CUSTOM SELECTOR */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background-image: none;
+  }
+  
+ /* Custom Selector Wrapper */
+.select {
+    margin: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    display: inline-block; /* Ensures the wrapper behaves like an inline element */
+    border-radius: 10px; /* Match form elements */
+    background: white; /* Match form background */
+    cursor: pointer;
+}
+
+/* Style for the select element to match the input and button */
+select {
+    -webkit-appearance: none; /* Remove default styling */
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background: transparent; /* Use the wrapper's background */
+    width: 100%; /* Fill the wrapper */
+    padding: 0.5rem; /* Match form input and todo button */
+    font-size: 1.5rem; /* Match form elements */
+    color: #da785d; /* Text color to match */
+    cursor: pointer;
+    border-radius: 10px; /* Rounded corners like the inputs */
+}
+
+/* Arrow */
+.select::after {
+    content: "\25BC"; /* Arrow icon */
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem; /* Adjusted padding to align with the select field */
+    background: #da785d; /* Arrow background to match button */
+    color: white; /* Arrow color */
+    pointer-events: none; /* Prevent interaction with the arrow */
+    height: 100%; /* Ensure it covers the height */
+    display: flex;
+    align-items: center; /* Center the arrow vertically */
+    justify-content: center;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+}
+
+/* Adjustments for container to ensure alignment */
+.todo-container, header, form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensures full width */
+}
+
+.todo-list {
+    width: auto; /* Adjust based on content */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Align items properly */
 }
