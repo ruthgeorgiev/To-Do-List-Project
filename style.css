@@ -22,6 +22,9 @@ header, form{
     align-items: center;
 }
 
+form{
+
+}
 form input {
     border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
 }
@@ -37,6 +40,7 @@ form input, .todo-button {
     background: white;
     color: #da785d; /* Color for the button text */
     cursor: pointer;
+    margin: 0;
 }
 
 form button:hover{
@@ -65,6 +69,15 @@ form button:hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    margin: 5px 0;
+    background-color: #ffffff;
+    border-radius: 10px; /* Rounded corners for the todo column */
+    color: #da785d;
+    transition: all 0.5s ease;
    
 }
 
@@ -92,16 +105,6 @@ form button:hover{
    
 }
 
-.todo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px;
-    margin: 5px 0;
-    background-color: #ffffff;
-    border-radius: 10px; /* Rounded corners for the todo column */
-    color: #da785d;
-}
 
 .todo-item {
     flex-grow: 1; /* Allows the todo item text to take up available space */
@@ -151,4 +154,14 @@ button {
     box-shadow: none; /* Removes any box shadow if present */
     margin: 0; /* Adjust as needed */
     padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall{
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
 }

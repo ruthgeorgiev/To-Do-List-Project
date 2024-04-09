@@ -1,110 +1,120 @@
-//selectors
+// Selectors
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 
-
-
-//Event Listeners
+// Event Listeners
 todoButton.addEventListener('click', addTodo);
-todoList.addEventListener("click", deleteCheck);
 
-
-
-//Functions
-function addTodo(event){
+// Add Todo Function
+function addTodo(event) {
     event.preventDefault(); // Prevent form from submitting
 
-    // Todo DIV
+    // Create todo DIV
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
 
     // Create LI
     const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value; // Ensure todoInput is defined elsewhere
+    newTodo.innerText = todoInput.value; // Get value from input field
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
 
-    // Check MARK BUTTON
+    // Create Complete Button
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
     completedButton.classList.add("complete-btn");
+    completedButton.addEventListener('click', markComplete);
     todoDiv.appendChild(completedButton);
 
-    // Check TRASH BUTTON
+    // Create Trash Button
     const trashButton = document.createElement("button");
     trashButton.innerHTML = '<i class="fas fa-trash"></i>';
     trashButton.classList.add("trash-btn");
+    trashButton.addEventListener('click', deleteTodo);
     todoDiv.appendChild(trashButton);
 
-    // Check EDIT BUTTON
+    // Create Edit Button
     const editButton = document.createElement("button");
     editButton.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
     editButton.classList.add("edit-btn");
+    editButton.addEventListener('click', editTodo);
     todoDiv.appendChild(editButton);
 
-    // Append TO LIST
-    todoList.appendChild(todoDiv); // Ensure todoList is defined elsewhere
+    // Append to List
+    todoList.appendChild(todoDiv);
 
-    //Clear Todo INPUT VALUE
+    // Clear Todo INPUT VALUE
     todoInput.value = "";
-
 }
 
-function deleteCheck(e) {
-    let item = e.target;
+// Mark Complete Function
+function markComplete(e) {
+    const todo = e.target.parentElement;
+    todo.classList.toggle("completed");
+}
 
-    // Adjust the target if the click came from an icon inside a button
-    if (item.classList.contains('fas') || item.classList.contains('fa-check') || item.classList.contains('fa-trash') || item.classList.contains('fa-pen-to-square')) {
-        item = item.closest('button');
-    }
-
-    // DELETE TODO
-    if (item.classList.contains("trash-btn")) {
-        const todo = item.closest('.todo');
+// Delete Todo Function
+function deleteTodo(e) {
+    const todo = e.target.parentElement;
+    todo.addEventListener('transitionend', function(){
         todo.remove();
-    }
-
-    // TOGGLE COMPLETE
-    else if (item.classList.contains("complete-btn")) {
-        const todo = item.closest('.todo');
-        todo.remove();
-    }
-
-    // EDIT TODO
-    else if (item.classList.contains("edit-btn")) {
-        const todoItem = item.closest('.todo').querySelector(".todo-item");
-        
-        // Create an input field for editing
-        const input = document.createElement("input");
-        input.type = "text";
-        input.value = todoItem.innerText;
-        input.classList.add("todo-item-edit");
-
-        // Replace the todo item's text with the input field
-        todoItem.innerHTML = "";
-        todoItem.appendChild(input);
-        input.focus();
-
-        // Save the changes on blur
-        input.addEventListener("blur", function() {
-            saveTodoChanges(todoItem, input.value);
-        });
-
-        // Save changes on enter key press
-        input.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                saveTodoChanges(todoItem, input.value);
-                input.blur(); // End editing
-            }
-        });
-    }
+    });
+    todo.classList.add("fall");
 }
 
-function saveTodoChanges(todoItem, newValue) {
-    // Replace the input field with updated text
-    todoItem.innerText = newValue;
+// Edit Todo Function
+// Function to enable editing of a todo item
+function editTodo(e) {
+    // Step 1: Identify the todo item to edit
+    // 'e.target' is what was clicked. '.closest('.todo')' finds the nearest parent todo item.
+    const todoDiv = e.target.closest('.todo');
+    if (!todoDiv) {
+        // If we didn't find a todo item, stop the function.
+        return;
+    }
+
+    // Find the text part of the todo item to edit
+    const todoItem = todoDiv.querySelector(".todo-item");
+    if (!todoItem) {
+        // If for some reason there's no text, stop the function.
+        return;
+    }
+
+    // Step 2: Create a new input field to replace the todo text
+    const inputElement = document.createElement("input");
+    inputElement.type = "text"; // Make it a text field
+    inputElement.value = todoItem.innerText; // Pre-fill with current todo text
+    inputElement.classList.add("todo-item-edit"); // Add styling class (if you have one)
+
+    // Replace the todo text with this new input field
+    todoItem.replaceWith(inputElement);
+    inputElement.focus(); // Immediately focus the input for editing
+
+    // Step 3: Define what happens when we're done editing
+    const finishEditing = () => {
+        // Get the text from the input field, but remove any leading/trailing spaces
+        const newText = inputElement.value.trim();
+
+        if (newText) {
+            // If there's text, update the todo item with this new text
+            todoItem.innerText = newText;
+            inputElement.replaceWith(todoItem); // Replace the input field with the updated todo text
+        } else {
+            // If no text was entered, remove the whole todo item
+            todoDiv.remove();
+        }
+    };
+
+    // When the input field loses focus ('blur' event), finish editing
+    inputElement.addEventListener("blur", finishEditing);
+
+    // If the Enter key is pressed while typing, finish editing
+    inputElement.addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            finishEditing();
+        }
+    });
 }
 
-
-    
+ 
