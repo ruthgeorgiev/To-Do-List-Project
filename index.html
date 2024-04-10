@@ -6,21 +6,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  
     <script src="https://kit.fontawesome.com/67eb40e651.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Todo List</title>
 </head>
 <body>
-
-<header>
-    <h1> Ruth's Todo List</h1>
-</header>
-<form>
-    <input type="text" class="todo-input">
-    <button class="todo-button" type="submit">
-        <i class="fa-solid fa-square-plus"></i>
-    </button>
+<div class="content-wrapper">
+    <header>
+        <h1>Ruth's Todo List</h1>
+    </header>
     <div class="select">
         <select name="todos" class="filter-todo">
             <option value="all">All</option>
@@ -28,11 +22,16 @@
             <option value="uncompleted">Uncompleted</option>
         </select>
     </div>
-</form>
-<div class="todo-container">
-    <ul class="todo-list"></ul>
+    <form>
+        <input type="text" class="todo-input">
+        <button class="todo-button" type="submit">
+            <i class="fa-solid fa-square-plus"></i>
+        </button>
+    </form>
+    <div class="todo-container">
+        <ul class="todo-list"></ul>
+    </div>
 </div>
-    
 <script src="./app.js"></script>
 </body>
 </html>

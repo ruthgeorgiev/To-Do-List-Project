@@ -3,6 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+.content-wrapper {
+    margin: 0 auto; /* Center the wrapper */
+    max-width: 1000px; /* Or any max-width you prefer */
+    padding: 1rem; /* Adds padding inside the wrapper */
+}
 
 body{
     background-image: linear-gradient(120deg, #f6d365, #f8997f);
@@ -15,8 +20,9 @@ header{
     font-size: 1.5rem;
 }
 
-header, form{
-    min-height: 25vh;
+header, 
+form{
+    min-height: 20vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,6 +44,7 @@ form input, .todo-button {
     color: #da785d; /* Color for the button text */
     cursor: pointer;
     margin: 0;
+    
 }
 
 form button:hover{
@@ -163,43 +170,34 @@ button {
     opacity: 0;
 }
 
-/*CUSTOM SELECTOR */
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    outline: 0;
-    box-shadow: none;
-    border: 0 !important;
-    background-image: none;
-  }
-  
- /* Custom Selector Wrapper */
+/* Custom Selector Wrapper */
 .select {
-    margin: 0.5rem;
+    margin: 1rem; /* Maintains 1rem margin on top and bottom */
+    margin-left: auto; /* Pushes the select element towards the right */
     position: relative;
     overflow: hidden;
-    display: inline-block; /* Ensures the wrapper behaves like an inline element */
-    border-radius: 10px; /* Match form elements */
-    background: white; /* Match form background */
+    display: flex; /* Use flex for internal alignment */
+    justify-content: spa; /* Aligns children (like the dropdown arrow) to the end/right */
+    border-radius: 10px;
+    background: white;
     cursor: pointer;
+    width: fit-content; /* Adjusts the width of the container to its content */
 }
 
 /* Style for the select element to match the input and button */
 select {
-    -webkit-appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     outline: none;
     border: none;
-    background: transparent; /* Use the wrapper's background */
-    width: 100%; /* Fill the wrapper */
-    padding: 0.5rem; /* Match form input and todo button */
-    font-size: 1.5rem; /* Match form elements */
-    color: #da785d; /* Text color to match */
+    background: transparent;
+    width: 10rem; /* Adjust width to content */
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #da785d;
     cursor: pointer;
-    border-radius: 10px; /* Rounded corners like the inputs */
+    border-radius: 10px;
 }
 
 /* Arrow */
@@ -208,15 +206,17 @@ select {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0.5rem; /* Adjusted padding to align with the select field */
-    background: #da785d; /* Arrow background to match button */
-    color: white; /* Arrow color */
-    pointer-events: none; /* Prevent interaction with the arrow */
-    height: 100%; /* Ensure it covers the height */
-    display: flex;
-    align-items: center; /* Center the arrow vertically */
-    justify-content: center;
+    padding: 0.5rem;
+    background: #da785d;
+    color: white;
+    pointer-events: none; /* Arrow is not clickable */
+    height: 100%;
     border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    transition: all 0.3s ease;
+}
+
+.select:hover::after{
+    background: white;
 }
 
 /* Adjustments for container to ensure alignment */
@@ -224,11 +224,11 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Ensures full width */
+    width: 100%;
 }
 
 .todo-list {
-    width: auto; /* Adjust based on content */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Align items properly */
+    width: auto;
+    padding: 0;
+    margin: 0;
 }
