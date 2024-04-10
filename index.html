@@ -15,12 +15,20 @@
     <header>
         <h1>Ruth's Todo List</h1>
     </header>
-    <div class="select">
-        <select name="todos" class="filter-todo">
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="uncompleted">Uncompleted</option>
-        </select>
+    <div class="controls-wrapper">
+        <div class="select">
+            <select name="todos" class="filter-todo">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="uncompleted">Uncompleted</option>
+            </select>
+        </div>
+        <form action="/search" method="GET" class="search-form">
+            <input type="text" id="search-input-left" name="q" placeholder="Search..." class="search-input">
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
     </div>
     <form>
         <input type="text" class="todo-input">

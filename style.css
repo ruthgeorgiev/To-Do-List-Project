@@ -5,7 +5,7 @@
 }
 .content-wrapper {
     margin: 0 auto; /* Center the wrapper */
-    max-width: 1000px; /* Or any max-width you prefer */
+    max-width: 900px; /* Or any max-width you prefer */
     padding: 1rem; /* Adds padding inside the wrapper */
 }
 
@@ -15,6 +15,47 @@ body{
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
 }
+
+.controls-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center;
+    gap: 5px; /* Reduce the gap between the select and search form */
+    /* Ensure the controls wrapper takes the full width to push content to the right */
+    width: 100%;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 5px; /* Optionally adjust this if more fine-tuning is needed */
+}
+
+.search-input {
+    padding: 0.4rem;
+    font-size: 1rem;
+    border: 2px solid #ccc; /* Example border, adjust as needed */
+    border-radius: 10px 0 0 10px; /* Rounded corners on the left */
+    outline: none;
+}
+
+.search-button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    background: #da785d; /* Match your theme */
+    color: white;
+    cursor: pointer;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right */
+}
+
+.search-button i {
+    pointer-events: none;
+}
+
+
+
+
 
 header{
     font-size: 1.5rem;
@@ -118,57 +159,9 @@ form button:hover{
 button {
     border: none;
     cursor: pointer;
-    margin-left: 5px;
+    
 }
 
-.complete-btn, .trash-btn, .edit-btn {
-    border-radius: 5px; /* Slightly rounded corners for the buttons */
-}
-
-/* Additional styling for individual buttons if needed */
-.complete-btn {
-    background-color: #4CAF50; /* Example: Green background for the complete button */
-    color: white;
-}
-
-.trash-btn {
-    background-color: #f44336; /* Example: Red background for the trash button */
-    color: white;
-}
-
-.edit-btn {
-    background-color: #ff9800; /* Example: Orange background for the edit button */
-    color: white;
-}
-
-.fa-trash, 
-.fa-edit,
-.fa-check{
-    pointer-events: none;
-
-}
-
-.todo-item-edit {
-    width: 100%; /* Makes the input field take up the full width of the todo item */
-    font-size: 1.5rem; /* Match this to your todo item font size */
-    color: #da785d;/* Match this to your todo item font color */
-    font-family: 'Poppins', sans-serif; /* Match this to your todo item font family */
-    border: none; /* Removes the border to make it look more integrated */
-    outline: none; /* Removes the outline to keep the appearance clean */
-    box-shadow: none; /* Removes any box shadow if present */
-    margin: 0; /* Adjust as needed */
-    padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
-}
-
-.completed{
-    text-decoration: line-through;
-    opacity: 0.5;
-}
-
-.fall{
-    transform: translateY(8rem) rotateZ(20deg);
-    opacity: 0;
-}
 
 /* Custom Selector Wrapper */
 .select {
@@ -224,11 +217,61 @@ select {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+   
 }
 
 .todo-list {
     width: auto;
     padding: 0;
     margin: 0;
+}
+
+
+.complete-btn, .trash-btn, .edit-btn {
+    border-radius: 5px; /* Slightly rounded corners for the buttons */
+}
+
+/* Additional styling for individual buttons if needed */
+.complete-btn {
+    background-color: #4CAF50; /* Example: Green background for the complete button */
+    color: white;
+}
+
+.trash-btn {
+    background-color: #f44336; /* Example: Red background for the trash button */
+    color: white;
+}
+
+.edit-btn {
+    background-color: #ff9800; /* Example: Orange background for the edit button */
+    color: white;
+}
+
+.fa-trash, 
+.fa-edit,
+.fa-check{
+    pointer-events: none;
+
+}
+
+.todo-item-edit {
+    width: 100%; /* Makes the input field take up the full width of the todo item */
+    font-size: 1.5rem; /* Match this to your todo item font size */
+    color: #da785d;/* Match this to your todo item font color */
+    font-family: 'Poppins', sans-serif; /* Match this to your todo item font family */
+    border: none; /* Removes the border to make it look more integrated */
+    outline: none; /* Removes the outline to keep the appearance clean */
+    box-shadow: none; /* Removes any box shadow if present */
+    margin: 0; /* Adjust as needed */
+    padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall{
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
 }
