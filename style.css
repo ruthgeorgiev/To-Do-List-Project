@@ -6,7 +6,7 @@
 .content-wrapper {
     margin: 0 auto; /* Center the wrapper */
     max-width: 900px; /* Or any max-width you prefer */
-    padding: 1rem; /* Adds padding inside the wrapper */
+    padding: 2rem; /* Adds padding inside the wrapper */
 }
 
 body{
@@ -22,7 +22,7 @@ body{
     align-items: center;
     gap: 5px; /* Reduce the gap between the select and search form */
     /* Ensure the controls wrapper takes the full width to push content to the right */
-    width: 100%;
+    width: 130%;
 }
 
 .search-form {
@@ -54,16 +54,13 @@ body{
 }
 
 
-
-
-
 header{
     font-size: 1.5rem;
 }
 
 header, 
 form{
-    min-height: 20vh;
+    min-height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,21 +74,74 @@ form input {
     border-radius: 0 10px 10px 0; /* Only the right side rounded for button */
     transition: all 0.3s ease;
 }
+
 form input, .todo-button {
-    padding: 0.5rem;
-    font-size: 2rem;
+    padding: 0.4em; /* Reduced padding for a smaller overall size */
+    font-size: 1.5rem; /* Reduced font size for less bulky appearance */
     border: none;
     background: white;
     color: #da785d; /* Color for the button text */
     cursor: pointer;
     margin: 0;
-    
 }
+
 
 form button:hover{
     background: #da785d;
     color: white;
 }
+
+
+/* todo urgency
+/* Custom wrapper around todo-urgency for custom dropdown arrow */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 5px; /* Aligns with your existing form element spacing */
+}
+
+/* todo-urgency select styling */
+.todo-urgency {
+    -webkit-appearance: none; /* Removes default styling for browsers */
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    margin: 0;
+    border: 2px solid #fff;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border-radius: 10px; /* Optional: Rounds the corners of the select box */
+    width: 100%; /* Ensures the select fills its parent wrapper */
+}
+
+/* Using ::after pseudo-element for custom arrow */
+.select-wrapper::after {
+ content: "\25BC"; /* Arrow icon */
+    position:absolute;
+    top: 0;
+    right: 0px;
+    padding: 0.5rem;
+    background: #da785d;
+    color: white;
+    pointer-events: none; /* Arrow is not clickable */
+    height: 65%;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    transition: all 0.3s ease;
+  
+}
+
+/* Adjust the focus state of the select element for better accessibility */
+.todo-urgency:focus {
+    outline: none;
+    border-color: #da785d; /* Optional: Adds a color highlight on focus */
+}
+
+
+
+
+
 
 
 
