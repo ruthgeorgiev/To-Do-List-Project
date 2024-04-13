@@ -25,10 +25,13 @@ body{
     width: 130%;
 }
 
+/* Search Form & Button */
+
 .search-form {
     display: flex;
     align-items: center;
     margin-left: 5px; /* Optionally adjust this if more fine-tuning is needed */
+    color: #da785d;
 }
 
 .search-input {
@@ -53,6 +56,55 @@ body{
     pointer-events: none;
 }
 
+/* Custom Selector Wrapper */
+.select {
+    margin: 1rem; /* Maintains 1rem margin on top and bottom */
+    margin-left: auto; /* Pushes the select element towards the right */
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Use flex for internal alignment */
+    justify-content: spa; /* Aligns children (like the dropdown arrow) to the end/right */
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    width: fit-content; /* Adjusts the width of the container to its content */
+}
+
+/* Style for the select element to match the input and button */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 10rem; /* Adjust width to content */
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #da785d;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* Arrow */
+.select::after {
+    content: "\25BC"; /* Arrow icon */
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    background: #da785d;
+    color: white;
+    pointer-events: none; /* Arrow is not clickable */
+    height: 100%;
+    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    transition: all 0.3s ease;
+}
+
+.select:hover::after{
+    background: white;
+}
+
 
 header{
     font-size: 1.5rem;
@@ -68,6 +120,7 @@ form{
 
 form input {
     border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
+    
 }
 
 .todo-button {
@@ -97,10 +150,18 @@ form button:hover{
 .select-wrapper {
     position: relative;
     display: inline-block;
-    margin: 5px; /* Aligns with your existing form element spacing */
+    
 }
 
 /* todo-urgency select styling */
+/* Urgency Select Styling */
+/* Custom wrapper around todo-urgency for custom dropdown arrow */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* todo-urgency select styling - ensure this does not change on hover */
 .todo-urgency {
     -webkit-appearance: none; /* Removes default styling for browsers */
     -moz-appearance: none;
@@ -112,37 +173,37 @@ form button:hover{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
-    border-radius: 10px; /* Optional: Rounds the corners of the select box */
-    width: 100%; /* Ensures the select fills its parent wrapper */
+    border-radius: 10px;
 }
 
 /* Using ::after pseudo-element for custom arrow */
 .select-wrapper::after {
- content: "\25BC"; /* Arrow icon */
-    position:absolute;
+    content: "\25BC"; /* Arrow icon */
+    position: absolute;
     top: 0;
     right: 0px;
     padding: 0.5rem;
-    background: #da785d;
-    color: white;
+    background: #da785d;  /* Initial background color */
+    color: white; /* Initial text color */
     pointer-events: none; /* Arrow is not clickable */
     height: 65%;
     border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
     transition: all 0.3s ease;
-  
+    display: block;
 }
+
+/* Change background and text color of arrow on hover */
+.select-wrapper:hover::after {
+    background: white;  /* Background color changes to white */
+    color: #da785d;  /* Text color changes to dark salmon */
+}
+
 
 /* Adjust the focus state of the select element for better accessibility */
 .todo-urgency:focus {
     outline: none;
     border-color: #da785d; /* Optional: Adds a color highlight on focus */
 }
-
-
-
-
-
-
 
 
 .todo-container {
@@ -213,55 +274,7 @@ button {
 }
 
 
-/* Custom Selector Wrapper */
-.select {
-    margin: 1rem; /* Maintains 1rem margin on top and bottom */
-    margin-left: auto; /* Pushes the select element towards the right */
-    position: relative;
-    overflow: hidden;
-    display: flex; /* Use flex for internal alignment */
-    justify-content: spa; /* Aligns children (like the dropdown arrow) to the end/right */
-    border-radius: 10px;
-    background: white;
-    cursor: pointer;
-    width: fit-content; /* Adjusts the width of the container to its content */
-}
-
-/* Style for the select element to match the input and button */
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    border: none;
-    background: transparent;
-    width: 10rem; /* Adjust width to content */
-    padding: 0.5rem;
-    font-size: 1rem;
-    color: #da785d;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-/* Arrow */
-.select::after {
-    content: "\25BC"; /* Arrow icon */
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem;
-    background: #da785d;
-    color: white;
-    pointer-events: none; /* Arrow is not clickable */
-    height: 100%;
-    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
-    transition: all 0.3s ease;
-}
-
-.select:hover::after{
-    background: white;
-}
-
+/
 /* Adjustments for container to ensure alignment */
 .todo-container, header, form {
     display: flex;
@@ -316,6 +329,7 @@ select {
     padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
 }
 
+
 .completed{
     text-decoration: line-through;
     opacity: 0.5;
@@ -325,3 +339,35 @@ select {
     transform: translateY(8rem) rotateZ(20deg);
     opacity: 0;
 }
+
+
+/* date picker */
+.todo-date {
+    -webkit-appearance: none; /* Removes default browser styling */
+    -moz-appearance: none;
+    appearance: none;
+    padding: 10px;
+    margin:40px; /* Consistent spacing */
+    border: 2px solid #fff; /* Similar border style */
+    background-color: #fff; /* Matching background */
+    font-family: 'Poppins', sans-serif; /* Uniform font */
+    cursor: pointer; /* Cursor style */
+    border-radius: 10px; /* Rounded corners like the select */
+    width: 30%; /* Full width within its container */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    font-size: 1rem;
+    
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #da785d;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #da785d;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #da785d;
+}
+

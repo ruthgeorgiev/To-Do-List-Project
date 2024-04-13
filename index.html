@@ -9,6 +9,7 @@
     <script src="https://kit.fontawesome.com/67eb40e651.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Todo List</title>
+    
 </head>
 <body>
 <div class="content-wrapper">
@@ -21,30 +22,43 @@
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
                 <option value="uncompleted">Uncompleted</option>
-            </select>
-        </div>
-        <form action="/search" method="GET" class="search-form">
-            <input type="text" id="search-input-left" name="q" placeholder="Search..." class="search-input">
-            <button type="submit" class="search-button">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
-        <form class="todo-form" action="#" method="POST">
-        <input type="text" class="todo-input" placeholder="Add a todo">
-        <button class="todo-button" type="submit">
-            <i class="fas fa-plus-square"></i>
-        </button>
-        <!-- Insert urgency dropdown here, after the button -->
-
-        <div class="select-wrapper">
-            <select name="urgency" class="todo-urgency">
                 <option value="urgent">Urgent</option>
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
             </select>
         </div>
+        <form action="/search" method="GET" class="search-form">
+            <input type="text" id="search-input-left" name="q" placeholder="Search..." class="search-input ">
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+    
+    <form class="todo-form" action="#" method="POST">
+        <input type="text" class="todo-input" placeholder="Add a todo">
+            <button class="todo-button" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+        <input
+            placeholder="Select due date..."
+            class="todo-date"
+            id="todo-date"
+            type="text"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"  
+        >
+        
+        <!-- Urgency here -->
+            <div class="select-wrapper">
+             <select name="urgency" class="todo-urgency">
+                <option value="urgent">Urgent</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            </div>
     </form>
+    
     <div class="todo-container">
         <ul class="todo-list"></ul>
     </div>

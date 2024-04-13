@@ -2,24 +2,30 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
+const todoDate = document.querySelector(".todo-date");  // Date input selector
+const filterOption = document.querySelector(".filter-todo");
 
 
 // Event Listeners
 todoButton.addEventListener('click', addTodo);
+filterOption.addEventListener('change', filterTodo);
 
 // Add Todo Function
 function addTodo(event) {
     event.preventDefault(); // Prevent form from submitting
 
-    // Create todo DIV
+    const urgency = document.querySelector(".todo-urgency").value; // Get the urgency from dropdown
+
+    // Create todo DIV and add urgency as a class for filtering
     const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo");
+    todoDiv.classList.add("todo", urgency);  // Add urgency level as a class
 
     // Create LI
     const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value; // Get value from input field
+    newTodo.innerText = todoInput.value + " (Due: " + todoDate.value + ")"; // Get value from input and date
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
+
 
     // Create Complete Button
     const completedButton = document.createElement("button");
@@ -45,6 +51,8 @@ function addTodo(event) {
     // Append to List
     todoList.appendChild(todoDiv);
 
+    todoList.appendChild(todoDiv); // Append to list
+
     // Clear Todo INPUT VALUE
     todoInput.value = "";
 }
@@ -64,8 +72,8 @@ function deleteTodo(e) {
     todo.classList.add("fall");
 }
 
-// Edit Todo Function
-// Function to enable editing of a todo item
+
+// Function to enable editing of a TODO ITEM
 function editTodo(e) {
     // Step 1: Identify the todo item to edit
     // 'e.target' is what was clicked. '.closest('.todo')' finds the nearest parent todo item.
@@ -86,7 +94,7 @@ function editTodo(e) {
     const inputElement = document.createElement("input");
     inputElement.type = "text"; // Make it a text field
     inputElement.value = todoItem.innerText; // Pre-fill with current todo text
-    inputElement.classList.add("todo-item-edit"); // Add styling class (if you have one)
+    inputElement.classList.add("todo-item-edit"); // Add styling class 
 
     // Replace the todo text with this new input field
     todoItem.replaceWith(inputElement);
@@ -118,4 +126,25 @@ function editTodo(e) {
     });
 }
 
- 
+function filterTodo() {
+    const todos = Array.from(todoList.childNodes).filter(node => node.nodeType === Node.ELEMENT_NODE);
+    todos.forEach(function(todo) {
+        switch(filterOption.value) {
+            case "all":
+                todo.style.display = 'flex'; // Show all todos
+                break;
+            case "completed":
+                todo.style.display = todo.classList.contains('completed') ? 'flex' : 'none';
+                break;
+            case "uncompleted":
+                todo.style.display = !todo.classList.contains('completed') ? 'flex' : 'none';
+                break;
+            case "urgent":
+            case "medium":
+            case "low":
+                todo.style.display = todo.classList.contains(filterOption.value) ? 'flex' : 'none';
+                break;
+        }
+    });
+}
+
