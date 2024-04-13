@@ -4,11 +4,13 @@ const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const todoDate = document.querySelector(".todo-date");
 const filterOption = document.querySelector(".filter-todo");
+const searchInput = document.getElementById("search-input-left");
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener('click', addTodo);
 filterOption.addEventListener('change', filterTodo);
+searchInput.addEventListener('input', searchTodos);
 
 // Functions
 function addTodo(event) {
@@ -165,4 +167,22 @@ function editLocalTodos(oldText, newText) {
         todos[index] = newText;  // Replace the old text with the new text
     }
     localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+
+//FUNCTION SEARCH TODO
+// Functions
+function searchTodos(e) {
+    const searchText = e.target.value.toLowerCase();
+    const todos = todoList.childNodes;
+
+    todos.forEach(function(todo) {
+        const todoText = todo.innerText.toLowerCase();
+        // Check if the todo item text contains the search text
+        if (todoText.includes(searchText)) {
+            todo.style.display = 'flex';
+        } else {
+            todo.style.display = 'none';
+        }
+    });
 }
