@@ -2,136 +2,99 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
-const todoDate = document.querySelector(".todo-date");  // Date input selector
+const todoDate = document.querySelector(".todo-date");
 const filterOption = document.querySelector(".filter-todo");
 
-
 // Event Listeners
+document.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener('click', addTodo);
 filterOption.addEventListener('change', filterTodo);
 
-// Add Todo Function
+// Functions
 function addTodo(event) {
     event.preventDefault(); // Prevent form from submitting
 
-    const urgency = document.querySelector(".todo-urgency").value; // Get the urgency from dropdown
+    const urgency = document.querySelector(".todo-urgency").value; // Get urgency level
 
-    // Create todo DIV and add urgency as a class for filtering
+    // Create todo DIV and add urgency class
     const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo", urgency);  // Add urgency level as a class
+    todoDiv.classList.add("todo", urgency); //add urgency as a class
 
     // Create LI
     const newTodo = document.createElement("li");
-    newTodo.innerText = todoInput.value + " (Due: " + todoDate.value + ")"; // Get value from input and date
+    newTodo.innerText = `${todoInput.value} (Due: ${todoDate.value})`; // Text with due date
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
 
+    // Save to local storage
+    saveLocalTodos(todoInput.value + " (Due: " + todoDate.value + ")");
 
     // Create Complete Button
-    const completedButton = document.createElement("button");
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
-    completedButton.classList.add("complete-btn");
-    completedButton.addEventListener('click', markComplete);
-    todoDiv.appendChild(completedButton);
+    appendButton(todoDiv, 'complete-btn', '<i class="fas fa-check"></i>', markComplete);
 
     // Create Trash Button
-    const trashButton = document.createElement("button");
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
-    trashButton.classList.add("trash-btn");
-    trashButton.addEventListener('click', deleteTodo);
-    todoDiv.appendChild(trashButton);
+    appendButton(todoDiv, 'trash-btn', '<i class="fas fa-trash"></i>', deleteTodo);
 
     // Create Edit Button
-    const editButton = document.createElement("button");
-    editButton.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
-    editButton.classList.add("edit-btn");
-    editButton.addEventListener('click', editTodo);
-    todoDiv.appendChild(editButton);
+    appendButton(todoDiv, 'edit-btn', '<i class="fa-solid fa-pen-to-square"></i>', editTodo);
 
     // Append to List
     todoList.appendChild(todoDiv);
 
-    todoList.appendChild(todoDiv); // Append to list
-
     // Clear Todo INPUT VALUE
     todoInput.value = "";
+    todoDate.value = ""; // Clear the date input as well
 }
 
-// Mark Complete Function
+function appendButton(parent, className, innerHTML, eventListener) {
+    const button = document.createElement("button");
+    button.innerHTML = innerHTML;
+    button.classList.add(className);
+    button.addEventListener('click', eventListener);
+    parent.appendChild(button);
+}
+
 function markComplete(e) {
     const todo = e.target.parentElement;
     todo.classList.toggle("completed");
 }
 
-// Delete Todo Function
 function deleteTodo(e) {
     const todo = e.target.parentElement;
-    todo.addEventListener('transitionend', function(){
+    todo.classList.add("fall");
+    todo.addEventListener('transitionend', function() {
         todo.remove();
     });
-    todo.classList.add("fall");
 }
 
-
-// Function to enable editing of a TODO ITEM
 function editTodo(e) {
-    // Step 1: Identify the todo item to edit
-    // 'e.target' is what was clicked. '.closest('.todo')' finds the nearest parent todo item.
-    const todoDiv = e.target.closest('.todo');
-    if (!todoDiv) {
-        // If we didn't find a todo item, stop the function.
-        return;
-    }
+    const todoItem = e.target.closest('.todo').querySelector(".todo-item");
+    const input = document.createElement("input");
+    input.type = "text";
+    input.classList.add("todo-item-edit");
+    input.value = todoItem.innerText;
 
-    // Find the text part of the todo item to edit
-    const todoItem = todoDiv.querySelector(".todo-item");
-    if (!todoItem) {
-        // If for some reason there's no text, stop the function.
-        return;
-    }
+    todoItem.replaceWith(input);
+    input.focus();
 
-    // Step 2: Create a new input field to replace the todo text
-    const inputElement = document.createElement("input");
-    inputElement.type = "text"; // Make it a text field
-    inputElement.value = todoItem.innerText; // Pre-fill with current todo text
-    inputElement.classList.add("todo-item-edit"); // Add styling class 
+    input.addEventListener("blur", function() {
+        input.replaceWith(todoItem);
+        todoItem.innerText = input.value;
+    });
 
-    // Replace the todo text with this new input field
-    todoItem.replaceWith(inputElement);
-    inputElement.focus(); // Immediately focus the input for editing
-
-    // Step 3: Define what happens when we're done editing
-    const finishEditing = () => {
-        // Get the text from the input field, but remove any leading/trailing spaces
-        const newText = inputElement.value.trim();
-
-        if (newText) {
-            // If there's text, update the todo item with this new text
-            todoItem.innerText = newText;
-            inputElement.replaceWith(todoItem); // Replace the input field with the updated todo text
-        } else {
-            // If no text was entered, remove the whole todo item
-            todoDiv.remove();
-        }
-    };
-
-    // When the input field loses focus ('blur' event), finish editing
-    inputElement.addEventListener("blur", finishEditing);
-
-    // If the Enter key is pressed while typing, finish editing
-    inputElement.addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-            finishEditing();
+    input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            input.blur();
         }
     });
 }
 
 function filterTodo() {
-    const todos = Array.from(todoList.childNodes).filter(node => node.nodeType === Node.ELEMENT_NODE);
-    todos.forEach(function(todo) {
-        switch(filterOption.value) {
+    const todos = Array.from(todoList.childNodes);
+    todos.forEach(todo => {
+        switch (filterOption.value) {
             case "all":
-                todo.style.display = 'flex'; // Show all todos
+                todo.style.display = 'flex';
                 break;
             case "completed":
                 todo.style.display = todo.classList.contains('completed') ? 'flex' : 'none';
@@ -148,3 +111,27 @@ function filterTodo() {
     });
 }
 
+function saveLocalTodos(todo) {
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos.push(todo);
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function getTodos() {
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    todos.forEach(todo => {
+        const todoDiv = document.createElement("div");
+        todoDiv.classList.add("todo");
+
+        const newTodo = document.createElement("li");
+        newTodo.innerText = todo;
+        newTodo.classList.add("todo-item");
+        todoDiv.appendChild(newTodo);
+
+        appendButton(todoDiv, 'complete-btn', '<i class="fas fa-check"></i>', markComplete);
+        appendButton(todoDiv, 'trash-btn', '<i class="fas fa-trash"></i>', deleteTodo);
+        appendButton(todoDiv, 'edit-btn', '<i class="fa-solid fa-pen-to-square"></i>', editTodo);
+
+        todoList.appendChild(todoDiv);
+    });
+}
