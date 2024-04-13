@@ -69,18 +69,23 @@ function deleteTodo(e) {
 }
 
 function editTodo(e) {
-    const todoItem = e.target.closest('.todo').querySelector(".todo-item");
+    const todoDiv = e.target.closest('.todo');
+    const todoItem = todoDiv.querySelector(".todo-item");
+    const oldText = todoItem.innerText;  // Capture the old text for reference in local storage update
     const input = document.createElement("input");
     input.type = "text";
     input.classList.add("todo-item-edit");
-    input.value = todoItem.innerText;
+    input.value = oldText;
 
     todoItem.replaceWith(input);
     input.focus();
 
     input.addEventListener("blur", function() {
+        const newText = input.value;
+        todoItem.innerText = newText;
         input.replaceWith(todoItem);
-        todoItem.innerText = input.value;
+        // Update local storage on edit
+        editLocalTodos(oldText, newText);
     });
 
     input.addEventListener("keypress", function(event) {
@@ -89,6 +94,7 @@ function editTodo(e) {
         }
     });
 }
+
 
 function filterTodo() {
     const todos = Array.from(todoList.childNodes);
@@ -140,12 +146,23 @@ function getTodos() {
 function removeLocalTodos(todo){
     let todos;
     if (localStorage.getItem("todos") === null){
-        todos === [];
+        todos = [];
     }else{
         todos = JSON.parse(localStorage.getItem("todos"));
     }
-    const todoIndex = todo.children[0].innerText;
-    todos.splice(todos.indexOf(todoIndex), 1);
+    const todoIndex = todo.querySelector(".todo-item").innerText;
+    const idx = todos.indexOf(todoIndex);
+    if (idx !== -1) {
+        todos.splice(idx, 1);
+    }
     localStorage.setItem("todos", JSON.stringify(todos));
-    
+}
+
+function editLocalTodos(oldText, newText) {
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+    const index = todos.indexOf(oldText);
+    if (index !== -1) {
+        todos[index] = newText;  // Replace the old text with the new text
+    }
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
