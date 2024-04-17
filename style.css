@@ -68,6 +68,7 @@ body{
     background: white;
     cursor: pointer;
     width: fit-content; /* Adjusts the width of the container to its content */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 /* Style for the select element to match the input and button */
@@ -84,6 +85,7 @@ select {
     color: #da785d;
     cursor: pointer;
     border-radius: 10px;
+    
 }
 
 /* Arrow */
@@ -99,6 +101,7 @@ select {
     height: 100%;
     border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
     transition: all 0.3s ease;
+    
 }
 
 .select:hover::after{
