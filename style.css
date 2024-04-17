@@ -35,7 +35,7 @@ body{
 }
 
 .search-input {
-    padding: 0.4rem;
+    padding: 0.43rem;
     font-size: 1rem;
     border: 2px solid #ccc; /* Example border, adjust as needed */
     border-radius: 10px 0 0 10px; /* Rounded corners on the left */
@@ -120,12 +120,13 @@ form{
 
 form input {
     border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
-    
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .todo-button {
     border-radius: 0 10px 10px 0; /* Only the right side rounded for button */
     transition: all 0.3s ease;
+    
 }
 
 form input, .todo-button {
@@ -136,6 +137,7 @@ form input, .todo-button {
     color: #da785d; /* Color for the button text */
     cursor: pointer;
     margin: 0;
+ 
 }
 
 

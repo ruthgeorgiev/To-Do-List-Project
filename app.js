@@ -171,18 +171,24 @@ function editLocalTodos(oldText, newText) {
 
 
 //FUNCTION SEARCH TODO
-// Functions
+// Modified searchTodos function with alert feature
 function searchTodos(e) {
     const searchText = e.target.value.toLowerCase();
-    const todos = todoList.childNodes;
+    const todos = Array.from(todoList.childNodes);  // Convert NodeList to Array for easier manipulation
+    let found = false;  // NEW: Flag to detect if we find any todo
 
     todos.forEach(function(todo) {
         const todoText = todo.innerText.toLowerCase();
-        // Check if the todo item text contains the search text
         if (todoText.includes(searchText)) {
             todo.style.display = 'flex';
+            found = true;  // NEW: Set found to true if a todo matches the search text
         } else {
             todo.style.display = 'none';
         }
     });
+
+    // NEW: If no todos found, show an alert
+    if (!found && searchText.trim() !== '') {
+        alert("We don't have what you searched for...");
+    }
 }
