@@ -12,41 +12,25 @@ todoButton.addEventListener('click', addTodo);
 filterOption.addEventListener('change', filterTodo);
 searchInput.addEventListener('input', searchTodos);
 
-// Functions
 function addTodo(event) {
-    event.preventDefault(); // Prevent form from submitting
-
-    const urgency = document.querySelector(".todo-urgency").value; // Get urgency level
-
-    // Create todo DIV and add urgency class
+    event.preventDefault();
+    const urgency = document.querySelector(".todo-urgency").value;
+    const todoText = `${todoInput.value} (Due: ${todoDate.value})`;
     const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo", urgency); //add urgency as a class
-
-    // Create LI
+    todoDiv.classList.add("todo", urgency);
     const newTodo = document.createElement("li");
-    newTodo.innerText = `${todoInput.value} (Due: ${todoDate.value})`; // Text with due date
+    newTodo.innerText = todoText;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
-
-    // Save to local storage
-    saveLocalTodos(todoInput.value + " (Due: " + todoDate.value + ")");
-
-    // Create Complete Button
+    saveLocalTodos(todoText, false); // Initially, the todo is not completed
     appendButton(todoDiv, 'complete-btn', '<i class="fas fa-check"></i>', markComplete);
-
-    // Create Trash Button
     appendButton(todoDiv, 'trash-btn', '<i class="fas fa-trash"></i>', deleteTodo);
-
-    // Create Edit Button
     appendButton(todoDiv, 'edit-btn', '<i class="fa-solid fa-pen-to-square"></i>', editTodo);
-
-    // Append to List
     todoList.appendChild(todoDiv);
-
-    // Clear Todo INPUT VALUE
     todoInput.value = "";
-    todoDate.value = ""; // Clear the date input as well
+    todoDate.value = "";
 }
+
 
 function appendButton(parent, className, innerHTML, eventListener) {
     const button = document.createElement("button");
@@ -57,9 +41,12 @@ function appendButton(parent, className, innerHTML, eventListener) {
 }
 
 function markComplete(e) {
-    const todo = e.target.parentElement;
-    todo.classList.toggle("completed");
+    const todoDiv = e.target.parentElement;
+    const todoItem = todoDiv.querySelector(".todo-item");
+    const wasCompleted = todoDiv.classList.toggle("completed");
+    updateTodoStatus(todoItem.innerText, wasCompleted);
 }
+
 
 function deleteTodo(e) {
     const todo = e.target.parentElement;
@@ -120,54 +107,60 @@ function filterTodo() {
     });
 }
 
-function saveLocalTodos(todo) {
+function saveLocalTodos(todoText, isCompleted) {
     let todos = JSON.parse(localStorage.getItem('todos')) || [];
-    todos.push(todo);
+    todos.push({text: todoText, completed: isCompleted});
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+
 function getTodos() {
     let todos = JSON.parse(localStorage.getItem('todos')) || [];
-    todos.forEach(todo => {
+    todos.forEach(todoObj => {
         const todoDiv = document.createElement("div");
         todoDiv.classList.add("todo");
-
+        if (todoObj.completed) {
+            todoDiv.classList.add("completed");
+        }
         const newTodo = document.createElement("li");
-        newTodo.innerText = todo;
+        newTodo.innerText = todoObj.text;
         newTodo.classList.add("todo-item");
         todoDiv.appendChild(newTodo);
-
         appendButton(todoDiv, 'complete-btn', '<i class="fas fa-check"></i>', markComplete);
         appendButton(todoDiv, 'trash-btn', '<i class="fas fa-trash"></i>', deleteTodo);
         appendButton(todoDiv, 'edit-btn', '<i class="fa-solid fa-pen-to-square"></i>', editTodo);
-
         todoList.appendChild(todoDiv);
     });
 }
 
-function removeLocalTodos(todo){
-    let todos;
-    if (localStorage.getItem("todos") === null){
-        todos = [];
-    }else{
-        todos = JSON.parse(localStorage.getItem("todos"));
-    }
-    const todoIndex = todo.querySelector(".todo-item").innerText;
-    const idx = todos.indexOf(todoIndex);
-    if (idx !== -1) {
-        todos.splice(idx, 1);
-    }
-    localStorage.setItem("todos", JSON.stringify(todos));
+
+function removeLocalTodos(todo) {
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    const todoText = todo.querySelector(".todo-item").innerText;
+    todos = todos.filter(todoObj => todoObj.text !== todoText);
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+
 function editLocalTodos(oldText, newText) {
-    let todos = JSON.parse(localStorage.getItem("todos")) || [];
-    const index = todos.indexOf(oldText);
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    // Find the index using trimmed and lowercased text to avoid subtle mismatches.
+    const index = todos.findIndex(todo => todo.text.trim().toLowerCase() === oldText.trim().toLowerCase());
+
     if (index !== -1) {
-        todos[index] = newText;  // Replace the old text with the new text
+        // Logging the old and new values for debugging
+        console.log(`Updating todo from "${todos[index].text}" to "${newText}"`);
+        todos[index].text = newText;  // Update the text in the object
+        localStorage.setItem('todos', JSON.stringify(todos));  // Persist the updated todos list
+        console.log("Updated todos:", JSON.stringify(todos));
+    } else {
+        // This error log will help identify issues when a todo item is not found
+        console.error("Todo item not found for editing: ", oldText);
     }
-    localStorage.setItem("todos", JSON.stringify(todos));
 }
+
+
+
 
 
 // Updated searchTodos function to display message on the page
@@ -193,5 +186,14 @@ function searchTodos(e) {
     } else {
         searchMessage.style.display = 'none';  // Hide the message element
     }
+}
+
+function updateTodoStatus(todoText, isCompleted) {
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    const index = todos.findIndex(todo => todo.text === todoText);
+    if (index !== -1) {
+        todos[index].completed = isCompleted;
+    }
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 

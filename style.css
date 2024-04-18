@@ -379,3 +379,7 @@ button {
 .search-message{
     margin-right: 20rem;
 }
+
+.search-input {
+    color: #da785d;
+}
