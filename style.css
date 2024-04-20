@@ -55,6 +55,16 @@ body{
     pointer-events: none;
 }
 
+.search-message{
+    margin-right: 0rem;
+    color: white;
+    padding-left: 0.5rem;
+}
+
+.search-input {
+    color: #da785d;
+}
+
 /* Custom Selector Wrapper */
 .select {
     margin: 1rem; 
@@ -365,13 +375,5 @@ button {
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-    color: #da785d;
-}
-
-.search-message{
-    margin-right: 20rem;
-}
-
-.search-input {
     color: #da785d;
 }
