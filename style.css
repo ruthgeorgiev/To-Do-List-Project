@@ -4,9 +4,9 @@
     box-sizing: border-box;
 }
 .content-wrapper {
-    margin: 0 auto; /* Center the wrapper */
-    max-width: 900px; /* Or any max-width you prefer */
-    padding: 2rem; /* Adds padding inside the wrapper */
+    margin: 0 auto; 
+    max-width: 900px; 
+    padding: 2rem; 
 }
 
 body{
@@ -18,10 +18,9 @@ body{
 
 .controls-wrapper {
     display: flex;
-    justify-content: flex-end; /* Align items to the right */
+    justify-content: flex-end; 
     align-items: center;
-    gap: 5px; /* Reduce the gap between the select and search form */
-    /* Ensure the controls wrapper takes the full width to push content to the right */
+    gap: 5px; 
     width: 130%;
 }
 
@@ -30,15 +29,15 @@ body{
 .search-form {
     display: flex;
     align-items: center;
-    margin-left: 5px; /* Optionally adjust this if more fine-tuning is needed */
+    margin-left: 5px; 
     color: #da785d;
 }
 
 .search-input {
     padding: 0.43rem;
     font-size: 1rem;
-    border: 2px solid #ccc; /* Example border, adjust as needed */
-    border-radius: 10px 0 0 10px; /* Rounded corners on the left */
+    border: 2px solid #ccc; 
+    border-radius: 10px 0 0 10px; 
     outline: none;
 }
 
@@ -46,10 +45,10 @@ body{
     padding: 0.5rem;
     font-size: 1rem;
     border: none;
-    background: #da785d; /* Match your theme */
+    background: #da785d; 
     color: white;
     cursor: pointer;
-    border-radius: 0 10px 10px 0; /* Rounded corners on the right */
+    border-radius: 0 10px 10px 0; 
 }
 
 .search-button i {
@@ -58,17 +57,17 @@ body{
 
 /* Custom Selector Wrapper */
 .select {
-    margin: 1rem; /* Maintains 1rem margin on top and bottom */
-    margin-left: auto; /* Pushes the select element towards the right */
+    margin: 1rem; 
+    margin-left: auto; 
     position: relative;
     overflow: hidden;
-    display: flex; /* Use flex for internal alignment */
-    justify-content: spa; /* Aligns children (like the dropdown arrow) to the end/right */
+    display: flex; 
+    justify-content: spa;
     border-radius: 10px;
     background: white;
     cursor: pointer;
-    width: fit-content; /* Adjusts the width of the container to its content */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: fit-content; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
 }
 
 /* Style for the select element to match the input and button */
@@ -79,7 +78,7 @@ select {
     outline: none;
     border: none;
     background: transparent;
-    width: 10rem; /* Adjust width to content */
+    width: 10rem; 
     padding: 0.5rem;
     font-size: 1rem;
     color: #da785d;
@@ -90,16 +89,16 @@ select {
 
 /* Arrow */
 .select::after {
-    content: "\25BC"; /* Arrow icon */
+    content: "\25BC"; 
     position: absolute;
     top: 0;
     right: 0;
     padding: 0.5rem;
     background: #da785d;
     color: white;
-    pointer-events: none; /* Arrow is not clickable */
+    pointer-events: none; 
     height: 100%;
-    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    border-radius: 0 10px 10px 0; 
     transition: all 0.3s ease;
     
 }
@@ -122,22 +121,22 @@ form{
 }
 
 form input {
-    border-radius: 10px 0 0 10px; /* Only the left side rounded for input */
+    border-radius: 10px 0 0 10px; 
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .todo-button {
-    border-radius: 0 10px 10px 0; /* Only the right side rounded for button */
+    border-radius: 0 10px 10px 0; 
     transition: all 0.3s ease;
     
 }
 
 form input, .todo-button {
-    padding: 0.4em; /* Reduced padding for a smaller overall size */
-    font-size: 1.5rem; /* Reduced font size for less bulky appearance */
+    padding: 0.4em; 
+    font-size: 1.5rem; 
     border: none;
     background: white;
-    color: #da785d; /* Color for the button text */
+    color: #da785d; 
     cursor: pointer;
     margin: 0;
  
@@ -150,7 +149,7 @@ form button:hover{
 }
 
 
-/* todo urgency
+/* todo urgency */
 /* Custom wrapper around todo-urgency for custom dropdown arrow */
 .select-wrapper {
     position: relative;
@@ -158,17 +157,10 @@ form button:hover{
     
 }
 
-/* todo-urgency select styling */
-/* Urgency Select Styling */
-/* Custom wrapper around todo-urgency for custom dropdown arrow */
-.select-wrapper {
-    position: relative;
-    display: inline-block;
-}
 
 /* todo-urgency select styling - ensure this does not change on hover */
 .todo-urgency {
-    -webkit-appearance: none; /* Removes default styling for browsers */
+    -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
     padding: 10px;
@@ -183,31 +175,31 @@ form button:hover{
 
 /* Using ::after pseudo-element for custom arrow */
 .select-wrapper::after {
-    content: "\25BC"; /* Arrow icon */
+    content: "\25BC"; 
     position: absolute;
     top: 0;
     right: 0px;
     padding: 0.5rem;
-    background: #da785d;  /* Initial background color */
-    color: white; /* Initial text color */
-    pointer-events: none; /* Arrow is not clickable */
+    background: #da785d;  
+    color: white; 
+    pointer-events: none; 
     height: 65%;
-    border-radius: 0 10px 10px 0; /* Rounded corners on the right side */
+    border-radius: 0 10px 10px 0; 
     transition: all 0.3s ease;
     display: block;
 }
 
 /* Change background and text color of arrow on hover */
 .select-wrapper:hover::after {
-    background: white;  /* Background color changes to white */
-    color: #da785d;  /* Text color changes to dark salmon */
+    background: white;  
+    color: #da785d;  
 }
 
 
 /* Adjust the focus state of the select element for better accessibility */
 .todo-urgency:focus {
     outline: none;
-    border-color: #da785d; /* Optional: Adds a color highlight on focus */
+    border-color: #da785d; 
 }
 
 
@@ -236,7 +228,7 @@ form button:hover{
     padding: 6px;
     margin: 5px 0;
     background-color: #ffffff;
-    border-radius: 10px; /* Rounded corners for the todo column */
+    border-radius: 10px; 
     color: #da785d;
     transition: all 0.5s ease;
    
@@ -296,22 +288,22 @@ button {
 
 
 .complete-btn, .trash-btn, .edit-btn {
-    border-radius: 5px; /* Slightly rounded corners for the buttons */
+    border-radius: 5px; 
 }
 
-/* Additional styling for individual buttons if needed */
+
 .complete-btn {
-    background-color: #4CAF50; /* Example: Green background for the complete button */
+    background-color: #4CAF50; 
     color: white;
 }
 
 .trash-btn {
-    background-color: #f44336; /* Example: Red background for the trash button */
+    background-color: #f44336; 
     color: white;
 }
 
 .edit-btn {
-    background-color: #ff9800; /* Example: Orange background for the edit button */
+    background-color: #ff9800; 
     color: white;
 }
 
@@ -323,15 +315,15 @@ button {
 }
 
 .todo-item-edit {
-    width: 100%; /* Makes the input field take up the full width of the todo item */
-    font-size: 1.5rem; /* Match this to your todo item font size */
-    color: #da785d;/* Match this to your todo item font color */
-    font-family: 'Poppins', sans-serif; /* Match this to your todo item font family */
-    border: none; /* Removes the border to make it look more integrated */
-    outline: none; /* Removes the outline to keep the appearance clean */
-    box-shadow: none; /* Removes any box shadow if present */
-    margin: 0; /* Adjust as needed */
-    padding: 0; /* Adjust as needed, but keeping it minimal helps it fit better */
+    width: 100%; 
+    font-size: 1.5rem; 
+    color: #da785d;
+    font-family: 'Poppins', sans-serif; 
+    border: none; 
+    outline: none; 
+    box-shadow: none; 
+    margin: 0; 
+    padding: 0; 
 }
 
 
@@ -348,18 +340,18 @@ button {
 
 /* date picker */
 .todo-date {
-    -webkit-appearance: none; /* Removes default browser styling */
+    -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
     padding: 10px;
-    margin:40px; /* Consistent spacing */
-    border: 2px solid #fff; /* Similar border style */
-    background-color: #fff; /* Matching background */
-    font-family: 'Poppins', sans-serif; /* Uniform font */
-    cursor: pointer; /* Cursor style */
-    border-radius: 10px; /* Rounded corners like the select */
-    width: 30%; /* Full width within its container */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    margin:40px; 
+    border: 2px solid #fff; 
+    background-color: #fff; 
+    font-family: 'Poppins', sans-serif; 
+    cursor: pointer; 
+    border-radius: 10px; 
+    width: 30%; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
     font-size: 1rem;
     
 }
